@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FormEase</title>
     <link rel="stylesheet" href="./style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
 </head>
 
 <body>
@@ -13,29 +15,31 @@
     <!-- navbar -->
     <section>
         <div class="container">
-            <div class="navbar">
-                <a href="#"><img src="./asset/logo.jpg" alt="logo picture" width="30px" height=" 30px"></a>
-                <a href="#">Home</a>
-                <a href="#">Creat form</a>
-                <a href="#">form history</a>
-            </div>
+            <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom"> <a href="/"
+                    class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+                    <svg class="bi me-2" width="40" height="32" aria-hidden="true">
+                        <use xlink:href="#bootstrap"></use>
+                    </svg> <span class="fs-4">FormEase</span> </a>
+                <ul class="nav nav-pills">
+                    <li class="nav-item"><a href="home.html" class="nav-link active" aria-current="page">Home</a></li>
+                    <li class="nav-item"><a href="create-form.html" class="nav-link">Create form</a></li>
+                    <li class="nav-item"><a href="Form-history.html" class="nav-link">Form History</a></li>
+
+                </ul>
+            </header>
         </div>
     </section>
 
     <!-- home-page -->
     <section>
-        <div class="container">
-            <div class="paragraph">
-                <div class="heading">
-                    <h1>📝 Welcome to FormEase – Create Forms in Minutes! </h1>
-                   <div class="feature">
-                        🚀 Key Features: <br>
-                        ✅ Drag & Drop Form Builder <br>
-                        ✅ Customizable Fields <br>
-                        ✅ Real-time Responses <br>
-                        ✅ Secure & Mobile-Friendly <br>
-                        ✅ Share via Link or QR Code</p>
-                   </div>
+        <div class="px-4 py-5 my-5 text-center"> <img class="d-block mx-auto mb-4" src="./asset/logo.jpg" alt=""
+                width="72" height="57">
+            <h1 class="display-5 fw-bold text-body-emphasis">Welcome to FormEase</h1>
+            <div class="col-lg-6 mx-auto">
+                <p class="lead mb-4">FormEase is your sleek gateway to effortless form creation — design stunning, responsive forms in minutes. No coding, no clutter — just pure simplicity and style for all your form needs.</p>
+                <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                    <a href="signup.html" class="btn btn-primary btn-lg px-4 gap-3">Sign Up</a>
+                    <a href="login.html" class="btn btn-outline-secondary btn-lg px-4">Log in</a>
                 </div>
             </div>
 
