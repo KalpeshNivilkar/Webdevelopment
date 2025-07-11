@@ -2,84 +2,155 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Form - FormEase</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create Form - FormEase</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 
 <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom mb-4">
-        <div class="container">
-            <a class="navbar-brand" href="#">FormEase</a>
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="#">Create Form</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Form History</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Page Title -->
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom mb-4">
     <div class="container">
-        <h2 class="mb-4 text-center">Create a New Form</h2>
-
-        <!-- Multi-purpose Institutional Form -->
-        <form>
-            <!-- Personal Information -->
-            <h5 class="mb-3">Personal Information</h5>
-            <div class="mb-3">
-                <label class="form-label">Full Name</label>
-                <input type="text" class="form-control" placeholder="Enter your full name" required>
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Email Address</label>
-                <input type="email" class="form-control" placeholder="Enter your email" required>
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Phone Number</label>
-                <input type="tel" class="form-control" placeholder="Enter your phone number" required>
-            </div>
-
-            <!-- Institution Type -->
-            <h5 class="mt-4 mb-3">Select Institution Type</h5>
-            <select class="form-select mb-3" required>
-                <option value="" selected disabled>Choose one</option>
-                <option value="school">School</option>
-                <option value="college">College</option>
-                <option value="library">Library</option>
-                <option value="hospital">Hospital</option>
-            </select>
-
-            <!-- Purpose -->
-            <h5 class="mt-4 mb-3">Purpose</h5>
-            <select class="form-select mb-3" required>
-                <option value="" selected disabled>Select purpose</option>
-                <option>Admission / Registration</option>
-                <option>Facility Access Request</option>
-                <option>Feedback / Complaint</option>
-                <option>Appointment / Booking</option>
-                <option>Resource Request</option>
-                <option>Other</option>
-            </select>
-
-            <!-- Description -->
-            <div class="mb-3">
-                <label class="form-label">Additional Comments / Description</label>
-                <textarea class="form-control" rows="4" placeholder="Provide any specific details here..."></textarea>
-            </div>
-
-            <!-- Submit -->
-            <div class="text-center mt-4">
-                <button type="submit" class="btn btn-success">Submit</button>
-            </div>
-        </form>
+      <a class="navbar-brand" href="#">FormEase</a>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+          <li class="nav-item"><a class="nav-link active" href="#">Create Form</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Form History</a></li>
+        </ul>
+      </div>
     </div>
+  </nav>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Page Title -->
+  <div class="container">
+    <h2 class="mb-4 text-center">Create a New Form</h2>
+
+    <!-- Multi-purpose Institutional Form -->
+    <form>
+      <!-- Personal Information -->
+      <h5 class="mb-3">Personal Information</h5>
+      <div class="mb-3">
+        <label class="form-label">Full Name</label>
+        <input type="text" class="form-control" placeholder="Enter your full name" required />
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Email Address</label>
+        <input type="email" class="form-control" placeholder="Enter your email" required />
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Phone Number</label>
+        <input type="tel" class="form-control" placeholder="Enter your phone number" required />
+      </div>
+
+      <!-- Institution Type -->
+      <h5 class="mt-4 mb-3">Select Institution Type</h5>
+      <select class="form-select mb-3" required>
+        <option value="" selected disabled>Choose one</option>
+        <option value="school">School</option>
+        <option value="college">College</option>
+        <option value="library">Library</option>
+        <option value="hospital">Hospital</option>
+      </select>
+
+      <!-- Purpose -->
+      <h5 class="mt-4 mb-3">Purpose</h5>
+      <select class="form-select mb-3" id="purposeSelect" required>
+        <option value="" selected disabled>Select purpose</option>
+        <option value="admission">Admission / Registration</option>
+        <option value="facility">Facility Access Request</option>
+        <option value="feedback">Feedback / Complaint</option>
+        <option value="appointment">Appointment / Booking</option>
+        <option value="resource">Resource Request</option>
+        <option value="other">Other</option>
+      </select>
+
+      <!-- Dynamic Purpose Details -->
+      <div id="purposeFields" class="mb-4"></div>
+
+      <!-- Description -->
+      <div class="mb-3">
+        <label class="form-label">Additional Comments / Description</label>
+        <textarea class="form-control" rows="4" placeholder="Provide any specific details here..."></textarea>
+      </div>
+
+      <!-- Submit -->
+      <div class="text-center mt-4">
+        <button type="submit" class="btn btn-success">Submit</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    const purposeSelect = document.getElementById("purposeSelect");
+    const purposeFields = document.getElementById("purposeFields");
+
+    purposeSelect.addEventListener("change", function () {
+      const value = this.value;
+      purposeFields.innerHTML = ""; // Clear previous
+
+      if (value === "admission") {
+        purposeFields.innerHTML = `
+          <div class="mb-3">
+            <label class="form-label">Course/Department</label>
+            <input type="text" class="form-control" placeholder="e.g. Computer Science" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Year of Admission</label>
+            <input type="number" class="form-control" placeholder="e.g. 2025" />
+          </div>`;
+      } else if (value === "facility") {
+        purposeFields.innerHTML = `
+          <div class="mb-3">
+            <label class="form-label">Facility Type</label>
+            <input type="text" class="form-control" placeholder="e.g. Library Room, Lab, Hall" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Required Date</label>
+            <input type="date" class="form-control" />
+          </div>`;
+      } else if (value === "feedback") {
+        purposeFields.innerHTML = `
+          <div class="mb-3">
+            <label class="form-label">Feedback Type</label>
+            <select class="form-select">
+              <option>Complaint</option>
+              <option>Suggestion</option>
+              <option>Appreciation</option>
+            </select>
+          </div>`;
+      } else if (value === "appointment") {
+        purposeFields.innerHTML = `
+          <div class="mb-3">
+            <label class="form-label">Department / Doctor / Teacher</label>
+            <input type="text" class="form-control" placeholder="e.g. Dr. Sharma or Admin Dept." />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Preferred Date</label>
+            <input type="date" class="form-control" />
+          </div>`;
+      } else if (value === "resource") {
+        purposeFields.innerHTML = `
+          <div class="mb-3">
+            <label class="form-label">Resource Name</label>
+            <input type="text" class="form-control" placeholder="e.g. Projector, Book, Equipment" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Quantity</label>
+            <input type="number" class="form-control" placeholder="e.g. 2" />
+          </div>`;
+      } else if (value === "other") {
+        purposeFields.innerHTML = `
+          <div class="mb-3">
+            <label class="form-label">Please Specify</label>
+            <input type="text" class="form-control" placeholder="Mention your specific request" />
+          </div>`;
+      }
+    });
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
