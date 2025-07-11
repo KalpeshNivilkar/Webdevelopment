@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Form - FormEase</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="#">FormEase</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="#">Create Form</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Form History</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Title -->
+    <div class="container">
+        <h2 class="mb-4 text-center">Create a New Form</h2>
+
+        <!-- Multi-purpose Institutional Form -->
+        <form>
+            <!-- Personal Information -->
+            <h5 class="mb-3">Personal Information</h5>
+            <div class="mb-3">
+                <label class="form-label">Full Name</label>
+                <input type="text" class="form-control" placeholder="Enter your full name" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Email Address</label>
+                <input type="email" class="form-control" placeholder="Enter your email" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Phone Number</label>
+                <input type="tel" class="form-control" placeholder="Enter your phone number" required>
+            </div>
+
+            <!-- Institution Type -->
+            <h5 class="mt-4 mb-3">Select Institution Type</h5>
+            <select class="form-select mb-3" required>
+                <option value="" selected disabled>Choose one</option>
+                <option value="school">School</option>
+                <option value="college">College</option>
+                <option value="library">Library</option>
+                <option value="hospital">Hospital</option>
+            </select>
+
+            <!-- Purpose -->
+            <h5 class="mt-4 mb-3">Purpose</h5>
+            <select class="form-select mb-3" required>
+                <option value="" selected disabled>Select purpose</option>
+                <option>Admission / Registration</option>
+                <option>Facility Access Request</option>
+                <option>Feedback / Complaint</option>
+                <option>Appointment / Booking</option>
+                <option>Resource Request</option>
+                <option>Other</option>
+            </select>
+
+            <!-- Description -->
+            <div class="mb-3">
+                <label class="form-label">Additional Comments / Description</label>
+                <textarea class="form-control" rows="4" placeholder="Provide any specific details here..."></textarea>
+            </div>
+
+            <!-- Submit -->
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-success">Submit</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
