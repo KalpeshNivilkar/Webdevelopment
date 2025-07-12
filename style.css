@@ -1,4 +1,113 @@
+/* ===== Global Styling ===== */
 body {
-  background-color:rgb(202, 210, 211); /* soft yellow */
+  background-color: #f8f9fa;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #212529;
+  margin: 0;
+  padding: 0;
+}
+
+/* ===== Navbar ===== */
+.navbar {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  background-color: #ffffff;
+}
+
+.navbar-brand {
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: #0d6efd;
+}
+
+.navbar-nav .nav-link {
+  color: #495057;
+  transition: color 0.3s ease-in-out;
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active {
+  color: #0d6efd;
+  font-weight: 500;
+}
+
+/* ===== Heading ===== */
+h2.text-center {
+  color: #0d6efd;
+  font-weight: bold;
+}
+
+/* ===== Form Layout ===== */
+form {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
+  margin-bottom: 50px;
+}
+
+/* ===== Labels and Inputs ===== */
+.form-label {
+  font-weight: 500;
+}
+
+.form-control,
+.form-select {
+  border-radius: 8px;
+  padding: 10px 14px;
+  box-shadow: none;
+  transition: border-color 0.2s;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 0.1rem rgba(13, 110, 253, 0.25);
+}
+
+/* ===== Submit Button ===== */
+.btn-success {
+  background-color: #198754;
+  padding: 10px 30px;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 8px;
+}
+
+.btn-success:hover {
+  background-color: #157347;
+}
+
+/* ===== Responsive Adjustments ===== */
+@media (max-width: 576px) {
+  form {
+    padding: 20px;
+  }
+}
+
+/* ===== Table Styling for Form History ===== */
+.table-container {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
+  margin: 30px auto;
+  max-width: 90%;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 12px 15px;
+  border: 1px solid #dee2e6;
+  text-align: left;
+}
+
+th {
+  background-color: #0d6efd;
+  color: white;
 }
