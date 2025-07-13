@@ -1,172 +1,182 @@
-// Script for create-form.html
+function getLoggedInUser() {
+  return JSON.parse(localStorage.getItem("loggedInUser"));
+}
 
-document.addEventListener("DOMContentLoaded", function () {
-  const purposeSelect = document.getElementById("purposeSelect");
-  const purposeFields = document.getElementById("purposeFields");
+function setLoggedInUser(user) {
+  localStorage.setItem("loggedInUser", JSON.stringify(user));
+}
 
-  purposeSelect.addEventListener("change", function () {
-    const value = this.value;
-    purposeFields.innerHTML = ""; // Clear previous
+function logout() {
+  localStorage.removeItem("loggedInUser");
+  window.location.href = "log-in.html";
+}
 
-    if (value === "admission") {
-      purposeFields.innerHTML = `
-        <div class="mb-3">
-          <label class="form-label" for="courseDepartment">Course/Department</label>
-          <input type="text" class="form-control" id="courseDepartment" placeholder="e.g. Computer Science" />
-        </div>
-        <div class="mb-3">
-          <label class="form-label" for="yearAdmission">Year of Admission</label>
-          <input type="number" class="form-control" id="yearAdmission" placeholder="e.g. 2025" />
-        </div>`;
-    } else if (value === "facility") {
-      purposeFields.innerHTML = `
-        <div class="mb-3">
-          <label class="form-label" for="facilityType">Facility Type</label>
-          <input type="text" class="form-control" id="facilityType" placeholder="e.g. Library Room, Lab, Hall" />
-        </div>
-        <div class="mb-3">
-          <label class="form-label" for="requiredDate">Required Date</label>
-          <input type="date" class="form-control" id="requiredDate" />
-        </div>`;
-    } else if (value === "feedback") {
-      purposeFields.innerHTML = `
-        <div class="mb-3">
-          <label class="form-label" for="feedbackType">Feedback Type</label>
-          <select class="form-select" id="feedbackType">
-            <option>Complaint</option>
-            <option>Suggestion</option>
-            <option>Appreciation</option>
-          </select>
-        </div>`;
-    } else if (value === "appointment") {
-      purposeFields.innerHTML = `
-        <div class="mb-3">
-          <label class="form-label" for="departmentDoctor">Department / Doctor / Teacher</label>
-          <input type="text" class="form-control" id="departmentDoctor" placeholder="e.g. Dr. Sharma or Admin Dept." />
-        </div>
-        <div class="mb-3">
-          <label class="form-label" for="preferredDate">Preferred Date</label>
-          <input type="date" class="form-control" id="preferredDate" />
-        </div>`;
-    } else if (value === "resource") {
-      purposeFields.innerHTML = `
-        <div class="mb-3">
-          <label class="form-label" for="resourceName">Resource Name</label>
-          <input type="text" class="form-control" id="resourceName" placeholder="e.g. Projector, Book, Equipment" />
-        </div>
-        <div class="mb-3">
-          <label class="form-label" for="quantity">Quantity</label>
-          <input type="number" class="form-control" id="quantity" placeholder="e.g. 2" />
-        </div>`;
-    } else if (value === "other") {
-      purposeFields.innerHTML = `
-        <div class="mb-3">
-          <label class="form-label" for="otherSpecify">Please Specify</label>
-          <input type="text" class="form-control" id="otherSpecify" placeholder="Mention your specific request" />
-        </div>`;
+const signUpForm = document.getElementById("signUpForm");
+if (signUpForm) {
+  signUpForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const fullName = document.getElementById("fullName").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
+
+    if (password !== confirmPassword) {
+      alert("Passwords do not match. Please try again.");
+      return;
     }
-  });
 
-  // Handle form submission
-  document.getElementById("institutionForm").addEventListener("submit", function (e) {
-    e.preventDefault();
-
-    // Gather form data
-    const formData = {
-      fullName: document.getElementById("fullName").value,
-      email: document.getElementById("email").value,
-      phone: document.getElementById("phone").value,
-      institutionType: document.getElementById("institutionType").value,
-      purpose: document.getElementById("purposeSelect").value,
-      description: document.getElementById("description").value,
+    const user = {
+      fullName,
+      email,
+      phone,
+      password,
     };
 
-    // Add dynamic fields based on purpose
-    switch (formData.purpose) {
-      case "admission":
-        formData.courseDepartment = document.getElementById("courseDepartment")?.value || "";
-        formData.yearAdmission = document.getElementById("yearAdmission")?.value || "";
-        break;
-      case "facility":
-        formData.facilityType = document.getElementById("facilityType")?.value || "";
-        formData.requiredDate = document.getElementById("requiredDate")?.value || "";
-        break;
-      case "feedback":
-        formData.feedbackType = document.getElementById("feedbackType")?.value || "";
-        break;
-      case "appointment":
-        formData.departmentDoctor = document.getElementById("departmentDoctor")?.value || "";
-        formData.preferredDate = document.getElementById("preferredDate")?.value || "";
-        break;
-      case "resource":
-        formData.resourceName = document.getElementById("resourceName")?.value || "";
-        formData.quantity = document.getElementById("quantity")?.value || "";
-        break;
-      case "other":
-        formData.otherSpecify = document.getElementById("otherSpecify")?.value || "";
-        break;
-    }
+    setLoggedInUser(user);
 
-    // Retrieve existing form data array from localStorage or initialize
-    let formHistory = JSON.parse(localStorage.getItem("formHistory")) || [];
-
-    // Add new form data to array
-    formHistory.push(formData);
-
-    // Save updated array back to localStorage
+    const formHistory = JSON.parse(localStorage.getItem("formHistory")) || [];
+    formHistory.push({
+      fullName,
+      email,
+      phone,
+      institutionType: "",
+      purpose: "",
+      description: "",
+      userEmail: email,
+    });
     localStorage.setItem("formHistory", JSON.stringify(formHistory));
 
-    // Optionally, clear the form or show a success message
-    alert("Form submitted and saved to history!");
-    this.reset();
-    purposeFields.innerHTML = "";
+    window.location.href = "index.html";
   });
-});
+}
 
-// Script for form-history.html
+const createForm = document.getElementById("createForm");
+if (createForm) {
+  createForm.addEventListener("submit", function (event) {
+    event.preventDefault();
 
-function createDetailsCell(data) {
-  let details = "";
-  for (const key in data) {
-    if (
-      ![
-        "fullName",
-        "email",
-        "phone",
-        "institutionType",
-        "purpose",
-        "description",
-      ].includes(key)
-    ) {
-      details += `<strong>${key}:</strong> ${data[key]}<br>`;
+    const loggedInUser = getLoggedInUser();
+    if (!loggedInUser) {
+      alert("Please log in to submit a form.");
+      window.location.href = "log-in.html";
+      return;
     }
-  }
-  return details || "N/A";
-}
 
-function loadFormHistory() {
-  const formHistory = JSON.parse(localStorage.getItem("formHistory")) || [];
-  const tbody = document.querySelector("#formHistoryTable tbody");
-  tbody.innerHTML = "";
+    const institutionType = document.getElementById("institutionType")?.value || "";
+    const purpose = document.getElementById("purpose")?.value || "";
+    const description = document.getElementById("description")?.value || "";
 
-  if (formHistory.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="7" class="text-center">No form submissions found.</td></tr>`;
-    return;
-  }
+    const formHistory = JSON.parse(localStorage.getItem("formHistory")) || [];
+    formHistory.push({
+      fullName: loggedInUser.fullName,
+      email: loggedInUser.email,
+      phone: loggedInUser.phone,
+      institutionType,
+      purpose,
+      description,
+      userEmail: loggedInUser.email,
+    });
+    localStorage.setItem("formHistory", JSON.stringify(formHistory));
 
-  formHistory.forEach((entry) => {
-    const row = document.createElement("tr");
-    row.innerHTML = `
-      <td>${entry.fullName}</td>
-      <td>${entry.email}</td>
-      <td>${entry.phone}</td>
-      <td>${entry.institutionType}</td>
-      <td>${entry.purpose}</td>
-      <td>${entry.description}</td>
-      <td>${createDetailsCell(entry)}</td>
-    `;
-    tbody.appendChild(row);
+    alert("Form submitted successfully.");
+    createForm.reset();
+    window.location.href = "form-history.html";
   });
 }
 
-document.addEventListener("DOMContentLoaded", loadFormHistory);
+if (currentPage === "form-history.html") {
+  function createDetailsCell(data) {
+    let details = "";
+    for (const key in data) {
+      if (
+        ![
+          "fullName",
+          "email",
+          "phone",
+          "institutionType",
+          "purpose",
+          "description",
+          "userEmail",
+        ].includes(key)
+      ) {
+        details += `<strong>${key}:</strong> ${data[key]}<br>`;
+      }
+    }
+    return details || "N/A";
+  }
+
+  function loadFormHistory() {
+    const loggedInUser = getLoggedInUser();
+    if (!loggedInUser) {
+      alert("Please log in to view form history.");
+      window.location.href = "log-in.html";
+      return;
+    }
+
+    const formHistory = JSON.parse(localStorage.getItem("formHistory")) || [];
+    const tbody = document.querySelector("#formHistoryTable tbody");
+    tbody.innerHTML = "";
+
+    const userForms = formHistory.filter(
+      (entry) => entry.userEmail.toLowerCase() === loggedInUser.email.toLowerCase()
+    );
+
+    if (userForms.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="8" class="text-center">No form submissions found.</td></tr>`;
+      return;
+    }
+
+    userForms.forEach((entry, index) => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${entry.fullName}</td>
+        <td>${entry.email}</td>
+        <td>${entry.phone}</td>
+        <td>${entry.institutionType}</td>
+        <td>${entry.purpose}</td>
+        <td>${entry.description}</td>
+        <td>${createDetailsCell(entry)}</td>
+        <td><button class="btn btn-danger btn-sm" onclick="deleteFormEntry(${index})">Delete</button></td>
+      `;
+      tbody.appendChild(row);
+    });
+  }
+
+  window.deleteFormEntry = function (index) {
+    const loggedInUser = getLoggedInUser();
+    if (!loggedInUser) {
+      alert("Please log in to delete form entries.");
+      window.location.href = "log-in.html";
+      return;
+    }
+
+    let formHistory = JSON.parse(localStorage.getItem("formHistory")) || [];
+
+    const userForms = formHistory.filter(
+      (entry) => entry.userEmail.toLowerCase() === loggedInUser.email.toLowerCase()
+    );
+
+    userForms.splice(index, 1);
+
+    const otherUsersForms = formHistory.filter(
+      (entry) => entry.userEmail.toLowerCase() !== loggedInUser.email.toLowerCase()
+    );
+
+    const updatedFormHistory = otherUsersForms.concat(userForms);
+    localStorage.setItem("formHistory", JSON.stringify(updatedFormHistory));
+    loadFormHistory();
+  };
+
+  // ❗ FIX: Direct call instead of nested DOMContentLoaded
+  loadFormHistory();
+}
+
+const logoutLink = document.getElementById("logoutLink");
+if (logoutLink) {
+  logoutLink.addEventListener("click", function (event) {
+    event.preventDefault();
+    logout();
+  });
+}
