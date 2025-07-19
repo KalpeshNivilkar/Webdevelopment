@@ -30,7 +30,7 @@
     <h2 class="mb-4 text-center">Create a New Form</h2>
 
     <!-- Multi-purpose Institutional Form -->
-    <form id="institutionForm">
+    <form id="createForm">
       <!-- Personal Information -->
       <h5 class="mb-3">Personal Information</h5>
       <div class="mb-3">
@@ -68,13 +68,87 @@
         <option value="other">Other</option>
       </select>
 
-      <!-- Dynamic Purpose Details -->
-      <div id="purposeFields" class="mb-4"></div>
+      <label class="form-label" for="description">Description</label>
+      <textarea class="form-control mb-3" id="description" rows="2" placeholder="Enter a brief description"></textarea>
 
-      <!-- Description -->
-      <div class="mb-3">
-        <label class="form-label" for="description">Additional Comments / Description</label>
-        <textarea class="form-control" id="description" rows="4" placeholder="Provide any specific details here..."></textarea>
+      <!-- Static Purpose Details -->
+      <div id="purposeFields" class="mb-4">
+        <!-- Admission -->
+        <div class="purpose-entry" id="admissionFields" style="display: none;">
+          <label class="form-label mt-2">Course Name</label>
+          <input type="text" class="form-control mb-2" name="courseName" placeholder="Enter course name" />
+
+          <label class="form-label">Previous Qualification</label>
+          <input type="text" class="form-control mb-2" name="previousQualification" placeholder="Enter qualification" />
+
+          <label class="form-label">Preferred Start Date</label>
+          <input type="date" class="form-control" name="preferredStartDate" />
+        </div>
+
+        <!-- Facility -->
+        <div class="purpose-entry" id="facilityFields" style="display: none;">
+          <label class="form-label mt-2">Facility Type</label>
+          <input type="text" class="form-control mb-2" name="facilityType" placeholder="e.g., Lab, Gym, Library" />
+
+          <label class="form-label">Time Slot</label>
+          <input type="time" class="form-control mb-2" name="timeSlot" />
+
+          <label class="form-label">Access Duration (in days)</label>
+          <input type="number" class="form-control" name="accessDuration" />
+        </div>
+
+        <!-- Feedback -->
+        <div class="purpose-entry" id="feedbackFields" style="display: none;">
+          <label class="form-label mt-2">Feedback Type</label>
+          <select class="form-select mb-2" name="feedbackType">
+            <option disabled selected>Select type</option>
+            <option>Positive</option>
+            <option>Negative</option>
+            <option>Suggestion</option>
+          </select>
+
+          <label class="form-label">Related Department</label>
+          <input type="text" class="form-control mb-2" name="relatedDepartment" placeholder="e.g., Admin, Support" />
+
+          <label class="form-label">Feedback Details</label>
+          <textarea class="form-control" name="feedbackDetails" rows="2" placeholder="Describe your feedback..."></textarea>
+        </div>
+
+        <!-- Appointment -->
+        <div class="purpose-entry" id="appointmentFields" style="display: none;">
+          <label class="form-label mt-2">Preferred Date</label>
+          <input type="date" class="form-control mb-2" name="preferredDate" />
+
+          <label class="form-label">Time</label>
+          <input type="time" class="form-control mb-2" name="appointmentTime" />
+
+          <label class="form-label">Department / Doctor</label>
+          <input type="text" class="form-control" name="departmentDoctor" placeholder="Enter department or name" />
+        </div>
+
+        <!-- Resource -->
+        <div class="purpose-entry" id="resourceFields" style="display: none;">
+          <label class="form-label mt-2">Resource Type</label>
+          <input type="text" class="form-control mb-2" name="resourceType" placeholder="e.g., Projector, Books" />
+
+          <label class="form-label">Quantity</label>
+          <input type="number" class="form-control mb-2" name="quantity" />
+
+          <label class="form-label">Additional Comments / Description</label>
+          <textarea class="form-control" name="additionalDescription" rows="2" placeholder="Provide any specific details here..."></textarea>
+        </div>
+
+        <!-- Other -->
+        <div class="purpose-entry" id="otherFields" style="display: none;">
+          <label class="form-label mt-2">Detail 1</label>
+          <input type="text" class="form-control mb-2" name="detail1" />
+
+          <label class="form-label">Detail 2</label>
+          <input type="text" class="form-control mb-2" name="detail2" />
+
+          <label class="form-label">Detail 3</label>
+          <input type="text" class="form-control" name="detail3" />
+        </div>
       </div>
 
       <!-- Submit -->

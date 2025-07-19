@@ -1,3 +1,6 @@
+// Define currentPage based on window location
+const currentPage = window.location.pathname.split("/").pop();
+
 function getLoggedInUser() {
   return JSON.parse(localStorage.getItem("loggedInUser"));
 }
@@ -52,6 +55,7 @@ if (signUpForm) {
   });
 }
 
+
 const createForm = document.getElementById("createForm");
 if (createForm) {
   createForm.addEventListener("submit", function (event) {
@@ -65,8 +69,23 @@ if (createForm) {
     }
 
     const institutionType = document.getElementById("institutionType")?.value || "";
-    const purpose = document.getElementById("purpose")?.value || "";
+    const purposeSelect = document.getElementById("purposeSelect");
+    const purpose = purposeSelect ? purposeSelect.value : "";
     const description = document.getElementById("description")?.value || "";
+
+    // Collect dynamic purpose fields values from visible purpose-entry div
+    const dynamicEntries = {};
+    const purposeFieldsDivs = document.querySelectorAll(".purpose-entry");
+    purposeFieldsDivs.forEach(div => {
+      if (div.style.display !== "none") {
+        const inputs = div.querySelectorAll("input, select, textarea");
+        inputs.forEach(input => {
+          if (input.name) {
+            dynamicEntries[input.name] = input.value;
+          }
+        });
+      }
+    });
 
     const formHistory = JSON.parse(localStorage.getItem("formHistory")) || [];
     formHistory.push({
@@ -76,6 +95,7 @@ if (createForm) {
       institutionType,
       purpose,
       description,
+      dynamicEntries,
       userEmail: loggedInUser.email,
     });
     localStorage.setItem("formHistory", JSON.stringify(formHistory));
@@ -86,9 +106,37 @@ if (createForm) {
   });
 }
 
+// Dynamic purpose details logic
+const purposeSelect = document.getElementById("purposeSelect");
+const purposeFieldsDiv = document.getElementById("purposeFields");
+
+if (purposeSelect && purposeFieldsDiv) {
+  purposeSelect.addEventListener("change", function () {
+    const selectedPurpose = this.value;
+
+    const purposeFieldsDivs = document.querySelectorAll(".purpose-entry");
+    purposeFieldsDivs.forEach((div) => {
+      div.style.display = "none";
+    });
+
+    const selectedDiv = document.getElementById(`${selectedPurpose}Fields`);
+    if (selectedDiv) {
+      selectedDiv.style.display = "block";
+    }
+  });
+}
+
 if (currentPage === "form-history.html") {
   function createDetailsCell(data) {
     let details = "";
+
+    // Include dynamicEntries if present
+    if (data.dynamicEntries) {
+      for (const key in data.dynamicEntries) {
+        details += `<strong>${key}:</strong> ${data.dynamicEntries[key]}<br>`;
+      }
+    }
+
     for (const key in data) {
       if (
         ![
@@ -99,6 +147,7 @@ if (currentPage === "form-history.html") {
           "purpose",
           "description",
           "userEmail",
+          "dynamicEntries"
         ].includes(key)
       ) {
         details += `<strong>${key}:</strong> ${data[key]}<br>`;
@@ -173,9 +222,9 @@ if (currentPage === "form-history.html") {
   loadFormHistory();
 }
 
-const logoutLink = document.getElementById("logoutLink");
-if (logoutLink) {
-  logoutLink.addEventListener("click", function (event) {
+const logoutBtn = document.getElementById("logoutBtn");
+if (logoutBtn) {
+  logoutBtn.addEventListener("click", function (event) {
     event.preventDefault();
     logout();
   });
